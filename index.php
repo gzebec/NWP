@@ -114,7 +114,7 @@ function createRssXml ($conn) {
             $child_node_description = $dom->createElement('description', 'An example item from the feed');
             $channel_node->appendChild($child_node_description);
 
-            $sql = "SELECT c.code id, c.name_hr title, c.description description, CONCAT('https://green.techsaver.hr/', replace(lower(c.name_hr), ' ', '-'), '-', c.card_id) link, " .
+            $sql = "SELECT c.code id, c.name_hr title, c.description description, CONCAT('https://green.techsaver.hr/', REPLACE(REPLACE(REPLACE(REPLACE(LOWER(SUBSTRING_INDEX(c.name_hr, ';', 2)), ' ', '-'), ';', ''), '/', ''), '.', ''), '-', c.card_id) link, " .
                    "       CONCAT('https://green.techsaver.hr/', pi.picture_file) image_link, " .
                    "       CASE WHEN INSTR(name_hr, 'HP') > 0 THEN 'HP' WHEN INSTR(name_hr, 'Epson') > 0 THEN 'Epson' WHEN INSTR(name_hr, 'Dell') > 0 THEN 'Dell' WHEN INSTR(name_hr, 'Lenovo') > 0 THEN 'Lenovo' " .
                    "       WHEN INSTR(name_hr, 'Canon') > 0 THEN 'Canon' WHEN INSTR(name_hr, 'Fujitsu') > 0 THEN 'Fujitsu' WHEN INSTR(name_hr, 'Lexmark') > 0 THEN 'Lexmark' ELSE null END brand, " .
